@@ -13,13 +13,13 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  getCars(): Observable<Coin[]> {
+  getCoins(): Observable<Coin[]> {
     return this.http.get<Coin[]>(`${this.COINS_URL}`);
   }
 
-  addNewCoin(coinAdded: Coin): Observable<Coin> {
+  buyCoin(coinAdded: Coin): Observable<Coin> {
     console.log('Coin added: ' + coinAdded.title + ' ' + coinAdded.price);
-    return this.http.post<Coin>(`${this.COINS_URL}/add-coin`, coinAdded,
+    return this.http.post<Coin>(`${this.COINS_URL}/add-to-cart`, coinAdded,
       {
         headers: new HttpHeaders({
           'Content-Type': 'application/json'

@@ -14,6 +14,8 @@ exports.getProductDetail = (req, res, next) => {
 }
 
 exports.addToCart = (req, res, next) => {
+    console.log('Request: ' + req)
+    console.log('Response: ' + res)
     const addedProduct = Product.findById(req.body.id)[0];
     Cart.save(addedProduct);
     res.redirect('/cart');

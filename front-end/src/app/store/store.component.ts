@@ -8,11 +8,9 @@ import {Coin} from "../models/Coin";
   styleUrls: ['./store.component.sass']
 })
 export class StoreComponent implements OnInit {
-
   coin: Coin;
   coins: Coin[] = [];
-
-  @ViewChild('title', {static: false}) titleRef: ElementRef;
+  amount: string = '';
 
   constructor(private apiService: ApiService) {
   }
@@ -21,35 +19,39 @@ export class StoreComponent implements OnInit {
     let btc = {
       title: "BTC",
       price: 10000,
+      amount: 0,
       imageURL: "../assets/btc.jpg",
       description: "money"
     }
     let eth = {
       title: "ETH",
       price: 380,
+      amount: 0,
       imageURL: "../assets/eth.jpg",
       description: "money"
     }
     let band = {
       title: "BAND",
       price: 16,
+      amount: 0,
       imageURL: "../assets/band.jpg",
       description: "money"
     }
 
-    this.coins.push(btc, eth, band);
+    this.coins.push(btc, eth, band)
+
+    console.log(this.coins)
+    for (let i of this.coins){
+      console.log(i)
+    }
   }
 
   onSubmit(coin: Coin) {
-    console.log(coin.title);
-    const title = this.titleRef.nativeElement.innerHTML;
-    //const title1 = this.component
-    console.log(title);
-    this.apiService.addNewCoin(title).subscribe(
+    console.log(coin);
+    this.apiService.buyCoin(coin).subscribe(
       (data: Coin) => {
         console.log(data);
       }
     )
   }
-
 }

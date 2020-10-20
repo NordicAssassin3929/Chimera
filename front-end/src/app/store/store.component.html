@@ -9,18 +9,33 @@
 </header>
 <section class="container content-section">
   <h2 class="section-header">Cryptocurrencies</h2>
+  <form>
   <div class="shop-items">
     <div class="shop-item" *ngFor="let coin of coins">
-      <span #title class="shop-item-title">{{ coin.title }}</span>
+      <p
+        name="title"
+        class="shop-item-title">{{ coin.title }}
+      </p>
       <img class="shop-item-image" [src]="coin.imageURL" >
+      <label for="amount">Amount:</label>
+      <input type="text"
+             [(ngModel)]="coin.amount"
+             id="amount"
+             name="amount"
+             #name="ngModel">
       <div class="shop-item-details">
-        <span class="shop-item-price">{{ coin.price }}</span>
-        <form #addCoinForm="ngForm" (ngSubmit)="onSubmit(addCoinForm.value)" method="POST">
-          <button type="submit" class="btn-primary">Add to Cart</button>
-        </form>
+        <p
+          name="price"
+          class="shop-item-price">{{ coin.price }}
+        </p>
+          <button
+            type="submit"
+            (click)="onSubmit(this.coin)"
+            class="btn-primary">Add to Cart</button>
       </div>
     </div>
   </div>
+  </form>
 </section>
 <section class="container content-section">
   <h2 class="section-header">CART</h2>

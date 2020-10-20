@@ -1,6 +1,7 @@
 export interface Coin {
-  title: string;
-  price: number;
-  imageURL: string;
-  description: string;
+  title: string
+  price: number
+  amount: number
+  imageURL: string
+  description: string
 }
