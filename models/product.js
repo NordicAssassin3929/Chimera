@@ -2,12 +2,12 @@ const products = [];
 
 class Product {
 
-    constructor(id, title, price, imageURL, description) {
+    constructor(id, title,
+                price, amount) {
         this.id = id;
         this.title = title;
         this.price = price;
-        this.imageURL = imageURL;
-        this.description = description;
+        this.amount = amount;
     }
 
     save() {

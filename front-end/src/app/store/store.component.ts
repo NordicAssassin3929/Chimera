@@ -16,6 +16,8 @@ export class StoreComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.apiService.getCoins();
+
     let btc = {
       title: "BTC",
       price: 10000,

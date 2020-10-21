@@ -2,17 +2,18 @@ let cart = null;
 
 module.exports = class Cart {
     static save(product) {
+        console.log('Product: ' + product)
         if(cart == null){
             cart = { products: [], totalPrice: 0}
         }
 
-        const existingProductIndex = cart.findIndex(p => p.id == product.id); // to check product is existing in cart
+        const existingProductIndex = cart.products.findIndex(p => p.id == product.id); // to check product is existing in cart
         if(existingProductIndex >= 0) { // exists in cart already
             const existingProduct = cart.products[existingProductIndex];
-            existingProductIndex.qty += 1;
+            //existingProductIndex.qty += 1;
         }
         else { // doesn't exists
-            product.qty = 1;
+            //product.qty = 1;
             cart.products.push(product);
         }
 

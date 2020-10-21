@@ -18,12 +18,12 @@ export class ApiService {
   }
 
   buyCoin(coinAdded: Coin): Observable<Coin> {
-    console.log('Coin added: ' + coinAdded.title + ' ' + coinAdded.price);
+    console.log('Coin added: ' + coinAdded);
     return this.http.post<Coin>(`${this.COINS_URL}/add-to-cart`, coinAdded,
       {
         headers: new HttpHeaders({
           'Content-Type': 'application/json'
-        })
+        }),
       })
   }
 }

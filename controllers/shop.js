@@ -2,6 +2,7 @@ const Product = require('../models/product');
 const Cart = require('../models/cart');
 
 exports.getAllProducts = (req, res, next) => {
+    console.log('something is done');
     const products = Product.findAll();
     console.log(products);
     // sending to angular
@@ -14,11 +15,16 @@ exports.getProductDetail = (req, res, next) => {
 }
 
 exports.addToCart = (req, res, next) => {
-    console.log('Request: ' + req)
-    console.log('Response: ' + res)
-    const addedProduct = Product.findById(req.body.id)[0];
+    console.log('Request: ' + req.body.title)
+    // const addedProduct = Product.findById(req.body.id)[0];
+    const addedProduct = new Product(
+        req.body.id,
+        req.body.title,
+        req.body.price,
+        req.body.amount)
+    console.log('Added product: ' + addedProduct)
     Cart.save(addedProduct);
-    res.redirect('/cart');
+    //res.redirect('/cart');
 }
 
 exports.getCart = (req, res, next) => {
