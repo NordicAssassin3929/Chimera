@@ -10,6 +10,16 @@ var mongoose = require('mongoose');
 
 var app = express();
 
+mongoose.connect('mongodb://localhost:27017/chimera', {useNewUrlParser: true, useUnifiedTopology: true});
+
+var db = mongoose.connection;
+
+db.on("error", console.error.bind(console, "connection error:"));
+
+db.once("open", function() {
+  console.log("Connection Successful!");
+});
+
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
@@ -28,8 +38,6 @@ app.use(sassMiddleware({
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(shopRouter);
-
-mongoose.connect('mongodb://localhost:27017/chimera', {useNewUrlParser: true, useUnifiedTopology: true});
 
 app.listen(3000);
 

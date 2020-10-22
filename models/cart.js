@@ -1,6 +1,10 @@
+const mongoose = require('mongoose');
 let cart = null;
 
+const CartModel = require('./cartModel')
+
 module.exports = class Cart {
+
     static save(product) {
         console.log('Product: ' + product)
         if(cart == null){
@@ -18,6 +22,20 @@ module.exports = class Cart {
         }
 
         cart.totalPrice += product.price;
+        console.log('Cart ' + cart);
+
+        const cartModel = new CartModel({
+            cart
+            });
+
+        cartModel.save(function(err, doc) {
+            if (err) return console.error(err);
+            console.log("Document inserted succussfully!");
+        });
+    }
+
+    static saveToDatabase(){
+
     }
 
     static getCart() {

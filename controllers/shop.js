@@ -18,7 +18,6 @@ exports.addToCart = (req, res, next) => {
     console.log('Request: ' + req.body.title)
     // const addedProduct = Product.findById(req.body.id)[0];
     const addedProduct = new Product(
-        req.body.id,
         req.body.title,
         req.body.price,
         req.body.amount)

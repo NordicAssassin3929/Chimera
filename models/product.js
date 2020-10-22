@@ -2,9 +2,8 @@ const products = [];
 
 class Product {
 
-    constructor(id, title,
+    constructor(title,
                 price, amount) {
-        this.id = id;
         this.title = title;
         this.price = price;
         this.amount = amount;
