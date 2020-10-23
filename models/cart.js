@@ -20,18 +20,16 @@ module.exports = class Cart {
             //product.qty = 1;
             cart.products.push({
                 'title': product.title,
-                'price': product.title,
-                'amount': product.title,
+                'price': product.price,
+                'amount': product.amount,
             });
-            cart.totalPrice += product.amount;
+            cart.totalPrice += product.amount * product.price;
         }
 
         cart.totalPrice += product.price;
-        console.log('Cart ' + cart.toString());
+        console.dir(cart)
 
-        const cartModel = new CartModel({
-            cart
-            });
+        const cartModel = new CartModel(cart);
 
         cartModel.save(function(err, doc) {
             if (err) return console.error(err);
