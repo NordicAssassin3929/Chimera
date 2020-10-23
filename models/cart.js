@@ -18,11 +18,16 @@ module.exports = class Cart {
         }
         else { // doesn't exists
             //product.qty = 1;
-            cart.products.push(product);
+            cart.products.push({
+                'title': product.title,
+                'price': product.title,
+                'amount': product.title,
+            });
+            cart.totalPrice += product.amount;
         }
 
         cart.totalPrice += product.price;
-        console.log('Cart ' + cart);
+        console.log('Cart ' + cart.toString());
 
         const cartModel = new CartModel({
             cart

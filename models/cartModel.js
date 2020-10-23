@@ -9,6 +9,7 @@ const cartSchema = mongoose.Schema(
                 amount: Number
             }
         ],
+        totalPrice: Number
     }
 );
 
