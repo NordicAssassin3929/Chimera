@@ -1,0 +1,41 @@
+cartModel.update({
+            userId: {
+                "$not": {
+                    "$elemMatch": {
+                        "userId": "r4w3ef"
+                    }
+                }
+            }
+        }, {
+            $addToSet: {
+                products: {
+                    'title': product.title,
+                    'price': product.price,
+                    'amount': product.amount
+                }
+            }
+        }, {multi: true});
+
+latest
+
+cartModel.updateOne(
+            {
+                userId: '5f940f8876ad3e073a2e1e8b'
+            },
+            {
+                $push: {
+                    products: [
+                        {
+                            'title': product.title,
+                            'price': product.price,
+                            'amount': product.amount
+                        }
+                    ],
+                    totalPrice: product.amount * product.price
+                }
+            },
+            {upsert: true, new: true},
+            {multi: true},
+            function (err, res) {
+                console.log(err, res)
+            });

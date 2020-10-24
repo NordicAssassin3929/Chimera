@@ -1,5 +1,6 @@
 const Product = require('../models/product');
 const Cart = require('../models/cart');
+const CartModel = require('../models/cartModel')
 
 exports.getAllProducts = (req, res, next) => {
     console.log('something is done');
@@ -27,7 +28,18 @@ exports.addToCart = (req, res, next) => {
 }
 
 exports.getCart = (req, res, next) => {
-    res.render('cart', { cart: Cart.getCart(), pageTitle: 'Shopping Cart Detail', path: '/cart', name: 'Edward' })
+    // res.render('cart', { cart: Cart.getCart(), pageTitle: 'Shopping Cart Detail', path: '/cart', name: 'Edward' })
+    const id = req.params.cartId;
+    CartModel.findById(id)
+        .then(doc => {
+            console.log(doc)
+            res.status(200).json(doc)
+        })
+        .catch(err => {
+                console.log(err)
+                res.status(500).json({error: err})
+            }
+        )
 }
 
 exports.deleteInCart = (req, res, next) => {
