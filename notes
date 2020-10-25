@@ -39,3 +39,24 @@ cartModel.updateOne(
             function (err, res) {
                 console.log(err, res)
             });
+
+cartModel.findOneAndUpdate(
+            {
+                userId: '5f940f8876ad3e073a2e1e8b'
+            },
+            {
+                "$addToSet": {
+                    products: [
+                        {
+                            'title': product.title,
+                            'price': product.price,
+                            'amount': product.amount
+                        }
+                    ]
+                },
+                $set: {
+                    "totalPrice": product.amount * product.price
+                }
+            },
+            done()
+        );
