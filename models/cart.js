@@ -3,15 +3,16 @@ const CartModel = require('./cartModel')
 
 module.exports = class Cart {
 
-    static save(product) {
+    static async save(product) {
+        let userId = '5f940f8876ad3e073a2e1e8b'
 
-        console.log('Product: ' + product)
+        cart = await CartModel.findOne({ userId })
+
+        console.log('Cart: ' + cart)
+
         if (cart == null) {
             cart = {products: [], totalPrice: 0}
         }
-
-        // if(userId == '5f940f8876ad3e073a2e1e8b') {
-        // 5f940f8876ad3e073a2e1e8b
 
         let productObj = {
             'title': product.title,
@@ -19,18 +20,17 @@ module.exports = class Cart {
             'amount': product.amount
         };
 
-        let done = function (err, result) {
-        } // this runs after the mongoose operation }
-
-        CartModel.update(
+        // read userId from cookies or session when user logs in
+        // https://stackoverflow.com/questions/44816519/how-to-get-cookie-value-in-expressjs
+        CartModel.updateOne(
             {
-                userId: '5f940f8876ad3e073a2e1e8b'
+                userId: userId
             },
             {
                 $push: {
                     products: productObj
                 },
-                $set: {
+                $inc: {
                     totalPrice: product.amount * product.price
                 }
             },
@@ -43,40 +43,28 @@ module.exports = class Cart {
                 }
             }
         );
-        // }
-        // else { // doesn't exists
-        // console.log('Cart already exists ')
-        // cart.userId = "5f940f8876ad3e073a2e1e8b"
-        // cart.products.push({
-        //     'title': product.title,
-        //     'price': product.price,
-        //     'amount': product.amount,
-        // });
-        // cart.totalPrice += product.amount * product.price;
-        //
-        // cart.totalPrice += product.price;
-        // console.dir(cart)
-        //
-        // cartModel = new CartModel(cart);
-        //
-        // cartModel.save(function (err, doc) {
-        //     if (err) return console.error(err);
-        //     console.log("Document inserted succussfully!");
-        // });
     }
 
-    static saveToDatabase() {
-
-    }
-
-    static getCart() {
-        return cart;
+    static getCart(res, userId) {
+        let cart = null
+        CartModel.findById(userId)
+            .then(doc => {
+                console.log(doc)
+                cart = doc
+                //res.status(200).json({document: doc})
+            })
+            .catch(err => {
+                    console.log(err)
+                    res.status(500).json({error: err})
+                }
+            )
+        return cart
     }
 
     static delete(productId) {
         const isExisting = cart.products.findIndex(p => p.id == productId);
         if (isExisting >= 0) {
-            cart.products.splice(isExisting, 1);
+            cart.products.splice(isExisting, 1)
         }
     }
 }

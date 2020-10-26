@@ -1,6 +1,7 @@
 import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {ApiService} from "../services/api.service";
 import {Coin} from "../models/Coin";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-store',
@@ -16,36 +17,40 @@ export class StoreComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.apiService.getCoins();
+    this.apiService.getCoins()
+      .subscribe((data: any) => {
+        console.log(data)
+        this.coins = data
+      })
 
-    let btc = {
-      title: "BTC",
-      price: 10000,
-      amount: 0,
-      imageURL: "../assets/btc.jpg",
-      description: "money"
-    }
-    let eth = {
-      title: "ETH",
-      price: 380,
-      amount: 0,
-      imageURL: "../assets/eth.jpg",
-      description: "money"
-    }
-    let band = {
-      title: "BAND",
-      price: 16,
-      amount: 0,
-      imageURL: "../assets/band.jpg",
-      description: "money"
-    }
+    // let btc = {
+    //   title: "BTC",
+    //   price: 10000,
+    //   amount: 0,
+    //   imageURL: "../assets/btc.jpg",
+    //   description: "money"
+    // }
+    // let eth = {
+    //   title: "ETH",
+    //   price: 380,
+    //   amount: 0,
+    //   imageURL: "../assets/eth.jpg",
+    //   description: "money"
+    // }
+    // let band = {
+    //   title: "BAND",
+    //   price: 16,
+    //   amount: 0,
+    //   imageURL: "../assets/band.jpg",
+    //   description: "money"
+    // }
+    //
+    // this.coins.push(btc, eth, band)
 
-    this.coins.push(btc, eth, band)
-
-    console.log(this.coins)
-    for (let i of this.coins){
-      console.log(i)
-    }
+    // console.log(this.coins)
+    // for (let i of this.coins){
+    //   console.log(i)
+    // }
   }
 
   onSubmit(coin: Coin) {
