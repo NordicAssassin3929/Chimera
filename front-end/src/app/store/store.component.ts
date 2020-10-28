@@ -20,6 +20,7 @@ export class StoreComponent implements OnInit {
     this.apiService.getCoins()
       .subscribe((data: any) => {
         console.log(data)
+        console.log(data.json())
         this.coins = data
       })
 
