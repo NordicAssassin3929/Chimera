@@ -1,7 +1,7 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ApiService} from "../services/api.service";
 import {Coin} from "../models/Coin";
-import {Observable} from "rxjs";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-store',
@@ -9,49 +9,18 @@ import {Observable} from "rxjs";
   styleUrls: ['./store.component.sass']
 })
 export class StoreComponent implements OnInit {
-  coin: Coin;
   coins: Coin[] = [];
-  amount: string = '';
 
-  constructor(private apiService: ApiService) {
+  constructor(private apiService: ApiService,
+              private router: Router) {
   }
 
   ngOnInit() {
     this.apiService.getCoins()
       .subscribe((data: any) => {
         console.log(data)
-        console.log(data.json())
         this.coins = data
       })
-
-    // let btc = {
-    //   title: "BTC",
-    //   price: 10000,
-    //   amount: 0,
-    //   imageURL: "../assets/btc.jpg",
-    //   description: "money"
-    // }
-    // let eth = {
-    //   title: "ETH",
-    //   price: 380,
-    //   amount: 0,
-    //   imageURL: "../assets/eth.jpg",
-    //   description: "money"
-    // }
-    // let band = {
-    //   title: "BAND",
-    //   price: 16,
-    //   amount: 0,
-    //   imageURL: "../assets/band.jpg",
-    //   description: "money"
-    // }
-    //
-    // this.coins.push(btc, eth, band)
-
-    // console.log(this.coins)
-    // for (let i of this.coins){
-    //   console.log(i)
-    // }
   }
 
   onSubmit(coin: Coin) {

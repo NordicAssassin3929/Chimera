@@ -1,5 +1,6 @@
-let cart = null;
 const CartModel = require('./cartModel')
+
+let cart = null;
 
 module.exports = class Cart {
 
@@ -45,20 +46,23 @@ module.exports = class Cart {
         );
     }
 
-    static getCart(res, userId) {
-        let cart = null
-        CartModel.findById(userId)
+    static getCart(user_Id) {
+        //'5f95619d4d2a9ea311eb6fd1'
+        CartModel.findOne({_id: { $eq: '5f95619d4d2a9ea311eb6fd1'}})
             .then(doc => {
-                console.log(doc)
-                cart = doc
-                //res.status(200).json({document: doc})
+                console.log('Doc ' + doc.products)
+                this.getCartContent(doc)
             })
             .catch(err => {
                     console.log(err)
-                    res.status(500).json({error: err})
                 }
             )
+        console.log('Get cart ' + cart)
         return cart
+    }
+
+    static getCartContent(doc){
+        cart = doc
     }
 
     static delete(productId) {

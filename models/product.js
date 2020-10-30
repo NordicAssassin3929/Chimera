@@ -1,6 +1,6 @@
-const products = [];
-
 const ProductModel = require('./productModel')
+
+let products = null
 
 module.exports = class Product {
 
@@ -16,16 +16,19 @@ module.exports = class Product {
     }
 
     static findAll() {
-        let products = null
         ProductModel.find()
             .then(doc => {
-                console.log(doc)
-                products = doc
+                this.getProducts(doc)
             })
             .catch(err => {
                 console.log(err)
             })
+        console.log('Find all ' + products)
         return products
+    }
+
+    static getProducts(doc){
+        products = doc
     }
 
     static findById(prodId) {
