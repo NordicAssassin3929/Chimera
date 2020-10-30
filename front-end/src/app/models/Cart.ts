@@ -1,6 +1,6 @@
 export interface Cart {
   userId: string
-  products: Products
+  products: Array<Products>
   totalPrice: Number
 }
 
