@@ -1,4 +1,4 @@
-const CartModel = require('./cartModel')
+const CartModel = require('../schemas/cartModel')
 
 let cart = null;
 
@@ -20,6 +20,9 @@ module.exports = class Cart {
             'price': product.price,
             'amount': product.amount
         };
+
+        const shit = CartModel.find({ products: { $elemMatch: { title: 'BTC' }}});
+        console.dir('Shit: ' + shit)
 
         // read userId from cookies or session when user logs in
         // https://stackoverflow.com/questions/44816519/how-to-get-cookie-value-in-expressjs
@@ -48,7 +51,8 @@ module.exports = class Cart {
 
     static getCart(user_Id) {
         //'5f95619d4d2a9ea311eb6fd1'
-        CartModel.findOne({_id: { $eq: '5f95619d4d2a9ea311eb6fd1'}})
+        console.log('user_Id ' + user_Id)
+        CartModel.findOne({_id: { $eq: user_Id}})
             .then(doc => {
                 console.log('Doc ' + doc.products)
                 this.getCartContent(doc)

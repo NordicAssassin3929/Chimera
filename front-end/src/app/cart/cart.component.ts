@@ -8,7 +8,7 @@ import {Cart, Products} from "../models/Cart";
   styleUrls: ['./cart.component.sass']
 })
 export class CartComponent implements OnInit {
-  cartItems: Cart[] = [];
+  cartItems: Products[] = null;
   totalCost: Number = 0;
 
   constructor(private apiService: ApiService) { }

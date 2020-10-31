@@ -9,8 +9,8 @@ exports.getAllProducts = (req, res, next) => {
 exports.getCart = (req, res, next) => {
     // here I will get usedId from logged in user
     //const id = req.params.cartId;
-    const user_Id = '5f940f8876ad3e073a2e1e8b'
-    // const userId = '5f95619d4d2a9ea311eb6fd1'
+    //const user_Id = '5f940f8876ad3e073a2e1e8b'
+    const user_Id = '5f95619d4d2a9ea311eb6fd1'
     const cart = Cart.getCart(user_Id);
     res.send(cart)
 }

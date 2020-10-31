@@ -1,4 +1,4 @@
-const ProductModel = require('./productModel')
+const ProductModel = require('../schemas/productModel')
 
 let products = null
 
