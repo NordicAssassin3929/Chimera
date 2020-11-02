@@ -22,11 +22,10 @@ module.exports = class Cart {
         };
 
         const searchedElement = CartModel.findOne({
-            products: {
-                $elemMatch: {
-                    title: { $in: 'BTC'}
+                products: {
+                    $elemMatch: {
+                        title: 'BTC'}
                 }
-            }
         });
 
         console.dir('Element exists: ' + searchedElement)
