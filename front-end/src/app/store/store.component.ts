@@ -15,12 +15,17 @@ export class StoreComponent implements OnInit {
               private router: Router) {
   }
 
-  ngOnInit() {
+  async waitForThis(){
     this.apiService.getCoins()
       .subscribe((data: any) => {
         console.log(data)
         this.coins = data
       })
+  }
+
+  ngOnInit() {
+    // async
+    this.waitForThis().then(r => console.log(r))
   }
 
   onSubmit(coin: Coin) {

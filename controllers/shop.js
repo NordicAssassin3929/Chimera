@@ -15,11 +15,6 @@ exports.getCart = (req, res, next) => {
     res.send(cart)
 }
 
-exports.getProductDetail = (req, res, next) => {
-    const products = Product.findById(req.params.prodId);
-    res.render('product-detail', { prod: products[0], pageTitle: 'Product Detail', path: '/', name: 'Edward' });
-}
-
 exports.addToCart = (req, res, next) => {
     console.log('Request: ' + req.body.title)
     // const addedProduct = Product.findById(req.body.id)[0];
@@ -29,6 +24,11 @@ exports.addToCart = (req, res, next) => {
         req.body.amount)
     Cart.save(addedProduct).then(r => console.log(r));
     //res.redirect('/cart');
+}
+
+exports.getProductDetail = (req, res, next) => {
+    const products = Product.findById(req.params.prodId);
+    res.render('product-detail', { prod: products[0], pageTitle: 'Product Detail', path: '/', name: 'Edward' });
 }
 
 exports.deleteInCart = (req, res, next) => {

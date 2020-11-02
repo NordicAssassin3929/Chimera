@@ -13,13 +13,17 @@ export class CartComponent implements OnInit {
 
   constructor(private apiService: ApiService) { }
 
-  ngOnInit() {
+  async waitForThis(){
     this.apiService.getCart()
       .subscribe((data: any) => {
         console.log(data)
         this.totalCost = data.totalPrice
         this.cartItems = data.products
       })
+  }
+
+  ngOnInit() {
+    this.waitForThis().then(r => console.log(r))
   }
 
 }

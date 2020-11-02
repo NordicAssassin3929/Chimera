@@ -7,7 +7,7 @@ module.exports = class Cart {
     static async save(product) {
         let userId = '5f940f8876ad3e073a2e1e8b'
 
-        cart = await CartModel.findOne({ userId })
+        cart = await CartModel.findOne({userId})
 
         console.log('Cart: ' + cart)
 
@@ -21,38 +21,76 @@ module.exports = class Cart {
             'amount': product.amount
         };
 
-        const shit = CartModel.find({ products: { $elemMatch: { title: 'BTC' }}});
-        console.dir('Shit: ' + shit)
+        const searchedElement = CartModel.findOne({
+            products: {
+                $elemMatch: {
+                    title: { $in: 'BTC'}
+                }
+            }
+        });
+
+        console.dir('Element exists: ' + searchedElement)
 
         // read userId from cookies or session when user logs in
         // https://stackoverflow.com/questions/44816519/how-to-get-cookie-value-in-expressjs
-        CartModel.updateOne(
-            {
-                userId: userId
-            },
-            {
-                $push: {
-                    products: productObj
+        // if BTC doesn't exist, add it to products
+        if (!searchedElement) {
+            console.log('DID THIS EXECUTE ?')
+            CartModel.updateOne(
+                {
+                    userId: userId
                 },
-                $inc: {
-                    totalPrice: product.amount * product.price
+                {
+                    $push: {
+                        products: productObj
+                    },
+                    $inc: {
+                        totalPrice: product.amount * product.price
+                    }
+                },
+                {upsert: true, new: true},
+                function (error, success) {
+                    if (error) {
+                        console.log(error)
+                    } else {
+                        console.log(success)
+                    }
                 }
-            },
-            {upsert: true, new: true},
-            function (error, success) {
-                if (error) {
-                    console.log(error)
-                } else {
-                    console.log(success)
+            );
+        }
+        // if BTC exists, just update amount and total cost
+        else {
+            console.log('or are we here ?')
+            CartModel.updateOne(
+                {
+                    userId: userId
+                },
+                {
+                    $push: {
+                        products: {
+                            'amount': product.amount
+                        }
+                    },
+                    $inc: {
+                        totalPrice: product.amount * product.price
+                    }
+                },
+                {upsert: true, new: true},
+                function (error, success) {
+                    if (error) {
+                        console.log(error)
+                    } else {
+                        console.log(success)
+                    }
                 }
-            }
-        );
+            );
+        }
     }
 
     static getCart(user_Id) {
         //'5f95619d4d2a9ea311eb6fd1'
         console.log('user_Id ' + user_Id)
-        CartModel.findOne({_id: { $eq: user_Id}})
+        CartModel.findOne({_id: {$eq: user_Id}})
             .then(doc => {
                 console.log('Doc ' + doc.products)
                 this.getCartContent(doc)
@@ -65,7 +103,7 @@ module.exports = class Cart {
         return cart
     }
 
-    static getCartContent(doc){
+    static getCartContent(doc) {
         cart = doc
     }
 
