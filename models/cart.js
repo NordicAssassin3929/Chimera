@@ -21,14 +21,14 @@ module.exports = class Cart {
             'amount': product.amount
         };
 
-        const searchedElement = CartModel.findOne({
+        const searchedElement = CartModel.find({
                 products: {
                     $elemMatch: {
                         title: 'BTC'}
                 }
         });
 
-        console.dir('Element exists: ' + searchedElement)
+        console.log('Element exists: ' + searchedElement)
 
         // read userId from cookies or session when user logs in
         // https://stackoverflow.com/questions/44816519/how-to-get-cookie-value-in-expressjs
