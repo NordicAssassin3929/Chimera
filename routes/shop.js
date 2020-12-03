@@ -4,16 +4,18 @@ const shopController = require('../controllers/shop');
 
 const router = express.Router();
 
+// done
 router.get('/', shopController.getAllProducts);
 
 router.get('/products/:prodId', shopController.getProductDetail);
 
+// done
 router.post('/add-to-cart', shopController.addToCart);
 
-// router.get('/cart/:cartId', shopController.getCart);
-
+// half done - need userId
 router.get('/cart', shopController.getCart);
 
-router.post('/delete-cart', shopController.deleteInCart);
+// done
+router.delete('/delete/:coinName', shopController.deleteInCart);
 
 module.exports = router;

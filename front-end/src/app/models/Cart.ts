@@ -1,10 +1,10 @@
 export interface Cart {
   userId: string
-  products: Array<Products>
+  products: Product[]
   totalPrice: Number
 }
 
-export interface Products {
+export interface Product {
   title: String,
   price: Number,
   amount: Number

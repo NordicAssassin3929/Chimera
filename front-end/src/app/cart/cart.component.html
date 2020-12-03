@@ -1,13 +1,18 @@
 <section class="container content-section">
   <h2 class="section-header">CART</h2>
-  <div class="cart-row" *ngFor="let item of cartItems">
+  <div class="cart-row" *ngFor="let item of cart">
     <span class="cart-item cart-header cart-column">Item: {{ item.title }}</span><br>
     <span class="cart-price cart-header cart-column">Price: {{ item.price }}$</span><br>
     <span class="cart-quantity cart-header cart-column">Amount: {{ item.amount }}</span>
+    <button class="btn btn-primary btn-delete" 
+    type="submit"
+    (click)="deleteItem(this.item.title)">Delete Item</button>
   </div>
   <div class="cart-total">
     <strong class="cart-total-title">Total</strong><br>
-    <span class="cart-total-price">Total: {{ totalCost }}$</span>
+    <span class="cart-total-price">Total: {{ total }}$</span>
   </div>
   <button class="btn btn-primary btn-purchase" type="button">PURCHASE</button>
+  <button class="btn btn-primary btn-purchase" (click)="backClicked()"
+  type="button">Go Back</button>
 </section>

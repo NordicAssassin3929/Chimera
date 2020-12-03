@@ -30,4 +30,9 @@ export class ApiService {
         }),
       })
   }
+  
+  deleteItem(coinName: String) {
+    console.log(`${this.COINS_URL}/delete/` + coinName)
+    return this.http.delete<Cart>(`${this.COINS_URL}/delete/` + coinName);
+  }
 }

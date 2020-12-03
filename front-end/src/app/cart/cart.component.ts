@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ApiService} from "../services/api.service";
-import {Cart, Products} from "../models/Cart";
+import {Cart, Product} from "../models/Cart";
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-cart',
@@ -8,22 +9,35 @@ import {Cart, Products} from "../models/Cart";
   styleUrls: ['./cart.component.sass']
 })
 export class CartComponent implements OnInit {
-  cartItems: Products[] = null;
-  totalCost: Number = 0;
+  cart: Cart[] = [];
+  total: Number = 0;
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService,
+    private location: Location) { }
 
   async waitForThis(){
     this.apiService.getCart()
       .subscribe((data: any) => {
-        console.log(data)
-        this.totalCost = data.totalPrice
-        this.cartItems = data.products
+        this.cart = data[0].products
+        this.total = data[0].totalPrice
       })
   }
 
-  ngOnInit() {
-    this.waitForThis().then(r => console.log(r))
+  backClicked() {
+    this.location.back()
   }
 
+  deleteItem(title: String) {
+    console.log(title)
+    this.apiService.deleteItem(title)
+    .subscribe(
+      (data: any) => {
+        console.log(data)
+      }
+    )
+  }
+
+  async ngOnInit() {
+    await this.waitForThis().then(r => console.log(r))
+  }
 }

@@ -23,14 +23,24 @@ export class StoreComponent implements OnInit {
       })
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     // async
-    this.waitForThis().then(r => console.log(r))
+    await this.waitForThis().then(r => console.log(r))
   }
 
   onSubmit(coin: Coin) {
     console.log(coin);
-    this.apiService.buyCoin(coin).subscribe(
+
+    const newCoin = {
+      title: coin.title,
+      price: coin.price,
+      amount: coin.amount,
+      imageURL: coin.imageURL,
+      description: coin.description
+    }
+    
+    this.apiService.buyCoin(newCoin)
+    .subscribe(
       (data: Coin) => {
         console.log(data);
       }
