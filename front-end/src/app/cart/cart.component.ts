@@ -18,8 +18,9 @@ export class CartComponent implements OnInit {
   async waitForThis(){
     this.apiService.getCart()
       .subscribe((data: any) => {
-        this.cart = data[0].products
-        this.total = data[0].totalPrice
+        console.log(data)
+        this.cart = data.products
+        this.total = data.totalPrice
       })
   }
 

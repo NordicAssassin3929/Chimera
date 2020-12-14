@@ -1,0 +1,13 @@
+db.carts.update({ _id : ObjectId('5fc6888b42d86bad7dafa319')},
+    { $pull: { "products": { title: 'BTC'} } } )
+    db.carts.find({userId : ObjectId('5f940f8876ad3e073a2e1e8b') } )
+    db.carts.find({"_id" : ObjectId('5fc6888b42d86bad7dafa319') } )
+    db.carts.find({ products: { $elemMatch: {title: 'BTC' }}}).pretty()   
+    db.carts.find({ 'products.title': 'BTC' }).pretty()  
+
+    db.carts.find(
+    {"products.title": "BTC"}, 
+    {_id: 0, products: {$elemMatch: {title: "BTC"}}}).pretty()
+
+    db.carts.findOne(
+    {userId: ObjectId("5f940f8876ad3e073a2e1e8b")})

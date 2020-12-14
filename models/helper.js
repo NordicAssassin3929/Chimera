@@ -1,14 +1,14 @@
 const CartModel = require('../schemas/cartModel');
 
 module.exports = class Helper {
-    static async getProduct(coinName){
+    static async getProductFromArray(coinName){
         let product = null
         await CartModel.find({'products.title': coinName},
         {_id: 0, products: {$elemMatch: {title: coinName}}}, (error, success) => {
             if (error) {
                 console.log(error)
             } else {
-                product = success[0].products[0];
+                product = success[0].products[0]
             }
         })
         return product
@@ -20,7 +20,7 @@ module.exports = class Helper {
             if (error) {
                 console.log(error)
             } else {
-                cart = success;
+                cart = success
             }
         })
         return cart

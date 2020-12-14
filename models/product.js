@@ -34,15 +34,5 @@ module.exports = class Product {
     static findById(prodId) {
         return products.filter(p => p.id == prodId);
     }
-
-    update() {
-        const editProductIndex = products.findIndex(p => p.id == this.id);
-        products[editProductIndex] = this;
-    }
-
-    static deleteById(prodId) {
-        const deleteProductIndex = products.findIndex(p => p.id == prodId);
-        products.splice(deleteProductIndex, 1);
-    }
 }
 

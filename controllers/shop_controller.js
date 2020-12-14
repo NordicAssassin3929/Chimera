@@ -6,12 +6,13 @@ exports.getAllProducts = (req, res, next) => {
     res.send(products)
 }
 
-exports.getCart = (req, res, next) => {
+exports.getCart = async(req, res, next) => {
     // here I will get usedId from logged in user
     //const id = req.params.cartId;
     //const user_Id = '5f940f8876ad3e073a2e1e8b'
     const user_Id = '5f940f8876ad3e073a2e1e8b'
-    const cart = Cart.getCart(user_Id);
+    const cart = await Cart.getCart(user_Id);
+    console.log('cart: ' + cart)
     res.send(cart)
 }
 
@@ -32,6 +33,4 @@ exports.getProductDetail = (req, res, next) => {
 exports.deleteInCart = (req, res, next) => {
     console.log('req.params.coinName: ' + req.params.coinName)
     Cart.delete(req.params.coinName);
-    // New code
-    res.json({ ok: true });
 }
