@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {environment} from "../../environments/environment";
 import {Coin} from "../models/Coin";
 import {Cart} from "../models/Cart";
+import { User } from '../models/User';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +30,15 @@ export class ApiService {
           'Content-Type': 'application/json'
         }),
       })
+  }
+
+  createUser(userAdded: User): Observable<User> {
+    return this.http.post<User>(`${this.COINS_URL}/register`, userAdded,
+      {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json'
+        }),
+      })  
   }
   
   deleteItem(coinName: String) {

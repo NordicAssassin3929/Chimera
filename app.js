@@ -6,6 +6,7 @@ var sassMiddleware = require('node-sass-middleware');
 var cors = require('cors')
 var bodyParser = require('body-parser')
 var shopRouter = require('./routes/shop_routes');
+var userRouter = require('./routes/user_routes');
 var mongoose = require('mongoose');
 
 var app = express();
@@ -41,6 +42,7 @@ app.use(cookieParser());
 // app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(shopRouter);
+app.use(userRouter);
 
 app.listen(3000);
 

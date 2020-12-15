@@ -1,1 +1,13 @@
-<p>login works!</p>
+<form>
+    <label for="fname">E-mail:</label><br>
+    <input type="text" id="fname" name="fname"><br>
+    <label for="lname">Password:</label><br>
+    <input type="text" id="lname" name="lname"><br>
+    <button (click)="router.navigate(['/']);">
+        <h5 class="band-name">Login</h5>
+    </button>
+</form>
+Don't have account ? Register
+<button (click)="router.navigate(['/register']);">
+    <h5 class="band-name">Register</h5>
+</button>
