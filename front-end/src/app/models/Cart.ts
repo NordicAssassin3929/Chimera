@@ -1,11 +1,11 @@
 export interface Cart {
   userId: string
   products: Product[]
-  totalPrice: Number
+  totalPrice: number
 }
 
 export interface Product {
-  title: String,
-  price: Number,
-  amount: Number
+  title: string,
+  price: number,
+  amount: number
 }

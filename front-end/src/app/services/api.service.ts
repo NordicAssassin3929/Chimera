@@ -5,6 +5,7 @@ import {environment} from "../../environments/environment";
 import {Coin} from "../models/Coin";
 import {Cart} from "../models/Cart";
 import { User } from '../models/User';
+import { HttpParams } from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,11 @@ export class ApiService {
 
   getCart(): Observable<Cart> {
     return this.http.get<Cart>(`${this.COINS_URL}/cart`);
+  }
+
+  getUser(email: string): Observable<User> {
+    console.log(`${this.COINS_URL}/login/${email}`)
+    return this.http.get<User>(`${this.COINS_URL}/login/${email}`);
   }
 
   buyCoin(coinAdded: Coin): Observable<Coin> {

@@ -2,26 +2,37 @@ const UserModel = require('../schemas/userModel');
 ObjectId = require('mongodb').ObjectID;
 
 module.exports = class User {
-    static async createUser(user) {
-        let userObj = {
-            'email': user.email,
-            'password': user.password
-        };
 
-        CartModel.updateOne(
+    constructor(email,
+        password, dob) {
+        this.email = email;
+        this.password = password;
+        this.dob = dob;
+    }
+
+    static async createUser(user) {
+        UserModel.create(
             {
-                $push: {
-                    user: userObj
-                }
+                'email': user.email,
+                'password': user.password,
+                'dob': user.dob
             },
-            {upsert: true, new: true},
+            // {upsert: true, new: true},
             function (error, success) {
                 if (error) {
-                    console.log(error)
+                    console.log('error: ' + error)
                 } else {
-                    console.log(success)
+                    console.log('success: ' + success)
                 }
             }
         );
+    }
+
+    static async getUserId(email) {
+        let id = null
+        let user = await UserModel.findOne({email})
+        id = user._id
+        console.log('getUserId: ' + id)
+        return id 
     }
 }

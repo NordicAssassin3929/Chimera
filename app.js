@@ -12,6 +12,7 @@ var mongoose = require('mongoose');
 var app = express();
 
 mongoose.set('useFindAndModify', false);
+mongoose.set('debug', true);
 mongoose.connect('mongodb://localhost:27017/chimera', {useNewUrlParser: true, useUnifiedTopology: true})
     .catch(error => console.log(error))
 

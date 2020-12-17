@@ -2,8 +2,6 @@ const CartModel = require('../schemas/cartModel');
 const Helper = require('./helper');
 ObjectId = require('mongodb').ObjectID;
 
-//let cart = null;
-
 module.exports = class Cart {
 
     static async save(product) {
@@ -11,6 +9,8 @@ module.exports = class Cart {
         let userId = '5f940f8876ad3e073a2e1e8b'
 
         cart = await CartModel.findOne({userId})
+
+        console.log('THIS IS CART ' + cart)
 
         if (cart == null) {
             cart = {products: [], totalPrice: 0}
@@ -91,6 +91,7 @@ module.exports = class Cart {
     }
 
     static async delete(coinName) {
+        // read from cookies
         let userId = '5f940f8876ad3e073a2e1e8b'
 
         // get product by coinName
