@@ -16,7 +16,8 @@ export class CartComponent implements OnInit {
     private location: Location) { }
 
   async waitForThis(){
-    this.apiService.getCart()
+    let user_Id = localStorage.getItem('user_id');
+    this.apiService.getCart(user_Id)
       .subscribe((data: any) => {
         console.log(data)
         this.cart = data.products

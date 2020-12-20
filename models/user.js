@@ -1,4 +1,5 @@
 const UserModel = require('../schemas/userModel');
+const Helper = require('./helper');
 ObjectId = require('mongodb').ObjectID;
 
 module.exports = class User {
@@ -28,11 +29,16 @@ module.exports = class User {
         );
     }
 
+    static async checkIfUserExists(email) {
+        return Helper.checkIfUserExists(email)
+    }
+
     static async getUserId(email) {
         let id = null
         let user = await UserModel.findOne({email})
         id = user._id
+        let password = user.password
         console.log('getUserId: ' + id)
-        return id 
+        return {email, id, password} 
     }
 }

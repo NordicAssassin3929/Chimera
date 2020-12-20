@@ -1,5 +1,7 @@
+const e = require('express');
 const express = require('express');
 const CartModel = require('../schemas/cartModel');
+const UserModel = require('../schemas/userModel');
 
 module.exports = class Helper {
     static async getProductFromArray(coinName){
@@ -14,6 +16,23 @@ module.exports = class Helper {
         })
         return product
     }
+
+    static async checkIfUserExists(email) {
+        let searchQuery = { email: email }
+        await UserModel.exists(searchQuery, (err, result) => {
+            if (err) {
+                console.log('Error ' + err)
+            } else {
+                console.log('Result: ' + result)
+            if (result) {
+                return true
+            }
+            else{
+                return false
+            }
+            }
+        })
+     }
 
     static async getCart(userId){
         let cart = null

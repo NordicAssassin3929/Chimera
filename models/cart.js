@@ -1,12 +1,28 @@
+const e = require('express');
 const CartModel = require('../schemas/cartModel');
 const Helper = require('./helper');
 ObjectId = require('mongodb').ObjectID;
 
 module.exports = class Cart {
 
-    static async save(product) {
+    static async save(product, userId) {
         let cart = null;
-        let userId = '5f940f8876ad3e073a2e1e8b'
+
+        // create cart if it doesn't exist yet
+
+        let searchQueryCart = { userId: userId }
+
+        CartModel.exists(searchQueryCart, (err, result) => {
+            if (err) {
+                console.log('Error ' + err)
+            } else {
+                console.log('Result: ' + result)
+                if (!result) {
+                    CartModel.create({userId: userId, products: [], totalPrice: 0});
+                }
+            }
+        })
+        // then
 
         cart = await CartModel.findOne({userId})
 
@@ -22,16 +38,14 @@ module.exports = class Cart {
             'amount': product.amount
         };
 
-       let searchQuery = { 'products.title': product.title }
+       let searchQuery = { userId: userId, 'products.title': product.title }
 
-       const searchedElement = CartModel.exists(searchQuery, (err, result) => {
+       CartModel.exists(searchQuery, (err, result) => {
         if (err) {
             console.log('Error ' + err)
         } else {
             console.log('Result: ' + result)
-        // read userId from cookies or session when user logs in
-        // https://stackoverflow.com/questions/44816519/how-to-get-cookie-value-in-expressjs
-        // if BTC doesn't exist, add it to products
+        // if coin doesn't exist, add it to products
         if (!result) {
             console.log('There is no searched element!')
             CartModel.updateOne(
@@ -56,7 +70,7 @@ module.exports = class Cart {
                 }
             );
         }
-        // if BTC exists, just update amount and total cost
+        // if coin exists, just update amount and total cost
         else {
             console.log('Searched element has been found!')
             console.log('Updating existing product in array!')
@@ -90,10 +104,7 @@ module.exports = class Cart {
         return cart
     }
 
-    static async delete(coinName) {
-        // read from cookies
-        let userId = '5f940f8876ad3e073a2e1e8b'
-
+    static async delete(coinName, userId) {
         // get product by coinName
         let product = await Helper.getProductFromArray(coinName)
         // get cart by userId

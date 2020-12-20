@@ -20,13 +20,17 @@ export class ApiService {
     return this.http.get<Coin[]>(`${this.COINS_URL}`);
   }
 
-  getCart(): Observable<Cart> {
-    return this.http.get<Cart>(`${this.COINS_URL}/cart`);
+  getCart(user_Id): Observable<Cart> {
+    return this.http.get<Cart>(`${this.COINS_URL}/cart/${user_Id}`);
   }
 
   getUser(email: string): Observable<User> {
     console.log(`${this.COINS_URL}/login/${email}`)
     return this.http.get<User>(`${this.COINS_URL}/login/${email}`);
+  }
+
+  checkIfUserExists(email: string): Observable<boolean> {
+    return this.http.get<boolean>(`${this.COINS_URL}/login/check/${email}`);
   }
 
   buyCoin(coinAdded: Coin): Observable<Coin> {
@@ -48,7 +52,17 @@ export class ApiService {
   }
   
   deleteItem(coinName: String) {
+    const userId = localStorage.getItem('user_id');
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      body: {
+        userId: userId
+      },
+    };
+
     console.log(`${this.COINS_URL}/delete/` + coinName)
-    return this.http.delete<Cart>(`${this.COINS_URL}/delete/` + coinName);
+    return this.http.delete<Cart>(`${this.COINS_URL}/delete/` + coinName, options);
   }
 }

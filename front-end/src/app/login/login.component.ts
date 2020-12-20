@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {ApiService} from "../services/api.service";
+import { ApiService } from "../services/api.service";
 import { FormGroup, FormBuilder } from '@angular/forms'
 import { User } from '../models/User';
 
@@ -12,7 +12,6 @@ import { User } from '../models/User';
 export class LoginComponent implements OnInit {
   contactForm: FormGroup;
   userLoginForm: FormGroup;
-  user_id: String = null;
   user: User;
 
   constructor(private router: Router,
@@ -27,21 +26,30 @@ export class LoginComponent implements OnInit {
     this.userLoginForm = this.fb.group({
       email: '',
       password: ''
-    }) 
+    })
   }
 
   onSubmit() {
     this.user = this.userLoginForm.value;
-    console.log(this.user)
+    let user_id = null;
+    let password = null;
 
     this.apiService.getUser(this.user.email)
-    .subscribe(
-      (data: any) => {
-        console.log(data);
-      }, (error) => {
-        console.log(error)
-      }
-    )
+      .subscribe(
+        (data: any) => {
+          user_id = data.id
+          password = data.password
+          // password OK, proceed
+          this.user.password == password
+            ? this.router.navigateByUrl('/')
+            : console.log('password no good!')
+          // save to cookies
+          localStorage.setItem('user_id', '');
+          localStorage.setItem('user_id', user_id);
+        }, (error) => {
+          console.log(error)
+        }
+      )
   }
 
 }

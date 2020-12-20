@@ -33,16 +33,55 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     this.user = this.userRegistrationForm.value;
-    console.log(this.user)
+    let email = null;
+    let userExists = null
+    // check if username is taken already
+    this.apiService.checkIfUserExists(this.user.email)
+      .subscribe(
+        async (data: any) => {
+          userExists = await data
+          console.log('AM I HERE ' + data)
+        }
+      )
 
-    this.apiService.createUser(this.user)
+    console.log('userExists: ' + userExists)
+    if (userExists) {
+    console.log('If')
+    this.apiService.getUser(this.user.email)
     .subscribe(
-      (data: User) => {
-        console.log(data);
+      async (data: any) => {
+        email = await data.email
+        console.log('email: ' + email)
+        console.log('this.user.email: ' + this.user.email)
+        if(this.user.email !== email && email !== undefined) {
+          //this.createUser()
+        }
+        else{
+          console.log('username is taken!')
+        }
       }, (error) => {
         console.log(error)
       }
     )
+    }
+    // user doesn't exist
+    else {
+      console.log('Else')
+      //this.createUser()
+    }
+  }
+
+  createUser() {
+    this.user = this.userRegistrationForm.value;
+      this.apiService.createUser(this.user)
+    .subscribe(
+      (data: User) => {
+        console.log('This shit executed: ' + data);
+      }, (error) => {
+        console.log(error)
+      }
+    )
+    //this.router.navigateByUrl('/login')
   }
 
 }

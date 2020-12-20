@@ -13,8 +13,8 @@ router.get('/products/:prodId', shopController.getProductDetail);
 // done
 router.post('/add-to-cart', shopController.addToCart);
 
-// half done - need userId
-router.get('/cart', shopController.getCart);
+// done
+router.get('/cart/:user_id', shopController.getCart);
 
 // done
 router.delete('/delete/:coinName', shopController.deleteInCart);

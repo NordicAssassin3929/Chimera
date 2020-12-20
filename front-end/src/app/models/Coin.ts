@@ -3,5 +3,6 @@ export interface Coin {
   price: number
   amount: number
   imageURL: string
-  description: string
+  description: string,
+  userId: string
 }

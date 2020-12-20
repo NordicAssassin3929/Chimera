@@ -7,6 +7,9 @@ const router = express.Router();
 router.get('/login/:email', userController.getUser);
 
 // done
+router.get('/login/check/:email', userController.getCheckUserExists);
+
+// done
 router.post('/register', userController.createUser);
 
 module.exports = router;

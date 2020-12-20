@@ -30,13 +30,15 @@ export class StoreComponent implements OnInit {
 
   onSubmit(coin: Coin) {
     console.log(coin);
+    const userId = localStorage.getItem('user_id');
 
     const newCoin = {
       title: coin.title,
       price: coin.price,
       amount: coin.amount,
       imageURL: coin.imageURL,
-      description: coin.description
+      description: coin.description,
+      userId: userId
     }
     
     this.apiService.buyCoin(newCoin)

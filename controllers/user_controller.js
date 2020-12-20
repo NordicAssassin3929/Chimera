@@ -10,6 +10,13 @@ exports.getUser = async(req, res, next) => {
     res.send(id)
 }
 
+// check if user exists
+exports.getCheckUserExists = (req, res, next) => {
+    email = req.params.email
+    User.checkIfUserExists(email)
+    .then(r => console.log('r ' + r));
+}
+
 // registration
 exports.createUser = (req, res, next) => {
     const addedUser = new User(
