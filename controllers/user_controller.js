@@ -11,10 +11,16 @@ exports.getUser = async(req, res, next) => {
 }
 
 // check if user exists
-exports.getCheckUserExists = (req, res, next) => {
+exports.getCheckUserExists = async(req, res, next) => {
     email = req.params.email
-    User.checkIfUserExists(email)
-    .then(r => console.log('r ' + r));
+    let userExists = false
+    await User.checkIfUserExists(email)
+    .then(result => {
+        console.log('Result: ' + result)
+        userExists = result
+    });
+    console.log('userExists: ' + userExists)
+    res.send(userExists)
 }
 
 // registration

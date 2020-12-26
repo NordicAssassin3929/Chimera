@@ -17,23 +17,6 @@ module.exports = class Helper {
         return product
     }
 
-    static async checkIfUserExists(email) {
-        let searchQuery = { email: email }
-        await UserModel.exists(searchQuery, (err, result) => {
-            if (err) {
-                console.log('Error ' + err)
-            } else {
-                console.log('Result: ' + result)
-            if (result) {
-                return true
-            }
-            else{
-                return false
-            }
-            }
-        })
-     }
-
     static async getCart(userId){
         let cart = null
         await CartModel.findOne( {userId: ObjectId(userId)} , (error, success) => {

@@ -30,8 +30,11 @@ module.exports = class User {
     }
 
     static async checkIfUserExists(email) {
-        return Helper.checkIfUserExists(email)
-    }
+        let searchQuery = { email: email }
+        let userExists = await UserModel.exists(searchQuery)
+        console.log('WHAT: ' + userExists)
+        return {userExists}
+     }
 
     static async getUserId(email) {
         let id = null
