@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class StoreComponent implements OnInit {
   coins: Coin[] = [];
+  modalCoins: [] = [];
 
   constructor(private apiService: ApiService,
               private router: Router) {
@@ -21,6 +22,10 @@ export class StoreComponent implements OnInit {
         console.log(data)
         this.coins = data
       })
+  }
+
+  getModalCoin(coin) {
+    this.modalCoins = coin
   }
 
   async ngOnInit() {

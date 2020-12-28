@@ -1,51 +1,63 @@
-<html>
-<head>
-  <title>The Generics | Store</title>
-  <meta name="description" content="This is the description">
-</head>
-<body>
-<header class="main-header">
-  <h1 class="band-name band-name-large">Chimera</h1>
-  <button (click)="router.navigate(['/cart']);">
-    <h5 class="band-name">Cart</h5>
-  </button>
-  <button (click)="router.navigate(['/login']);">
-    <h5 class="band-name">Login</h5>
-  </button>
-</header>
-<section class="container content-section">
-  <h2 class="section-header">Cryptocurrencies</h2>
+<div class="container">
+  <header>
+    <app-header></app-header>
+  </header>
   <form>
-  <div class="shop-items">
-    <div class="shop-item" *ngFor="let coin of coins">
-      <p
-        name="title"
-        class="shop-item-title">{{ coin.title }}
-      </p>
-      <img class="shop-item-image" [src]="coin.imageURL" >
-      <label for="amount">Amount:</label>
-      <input type="text"
-             [(ngModel)]="coin.amount"
-             id="amount"
-             name="amount"
-             #name="ngModel">
-      <div class="shop-item-details">
-        <p
-          name="price"
-          class="shop-item-price">{{ coin.price }}
-        </p>
-          <button
-            type="submit"
-            (click)="onSubmit(this.coin)"
-            class="btn-primary">Add to Cart</button>
+    <div class="row justify-content-md-center">
+      <div class="col-sm-4" *ngFor="let coin of coins">
+        <div class="card mb-3" style="max-width: 540px;">
+          <div class="row no-gutters" id="inner-row">
+            <div class="col-md-4">
+              <img [src]="coin.imageURL" (click)="getModalCoin(coin)"
+              class="bd-placeholder-img card-img-top" width="100%" height="120"
+                xmlns="http://www.w3.org/2000/svg" aria-label="Placeholder: Image cap"
+                data-toggle="modal" data-target="#exampleModalScrollable">
+              <!-- Modal -->
+              <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalScrollableTitle">{{modalCoins.title}}</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      {{modalCoins.description}}
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--modal-->
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title">{{coin.title}}</h5>
+                <p class="card-text">{{coin.price}}$</p>
+                <label for="amount">Quantity:</label>
+                <input class="form-control mb-2" type="text" [(ngModel)]="coin.amount" id="amount" name="amount"
+                  #name="ngModel">
+                <p class="card-text"><small class="text-muted">
+                    <button type="submit" (click)="onSubmit(this.coin)" class="btn-pill btn-dark">Add to Cart</button>
+                  </small></p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+      <!-- <div class="col-sm">
+        <label for="amount">Amount:</label>
+        <input type="text" [(ngModel)]="coin.amount" id="amount" name="amount" #name="ngModel">
+        <div class="shop-item-details">
+          <p name="price" class="shop-item-price">{{ coin.price }}
+          </p>
+        </div>
+        <button type="submit" (click)="onSubmit(this.coin)" class="btn-primary">Add to Cart</button>
+      </div> -->
     </div>
-  </div>
   </form>
-</section>
-<footer class="main-footer">
-  <div class="container main-footer-container">
-  </div>
-</footer>
-</body>
-</html>
+</div>

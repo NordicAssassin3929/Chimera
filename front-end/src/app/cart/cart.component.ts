@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ApiService} from "../services/api.service";
 import {Cart, Product} from "../models/Cart";
 import {Location} from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -12,7 +13,8 @@ export class CartComponent implements OnInit {
   cart: Cart[] = [];
   total: Number = 0;
 
-  constructor(private apiService: ApiService,
+  constructor(private router: Router,
+    private apiService: ApiService,
     private location: Location) { }
 
   async waitForThis(){

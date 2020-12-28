@@ -1,18 +1,53 @@
-<section class="container content-section">
+<!-- <section class="container content-section">
   <h2 class="section-header">CART</h2>
   <div class="cart-row" *ngFor="let item of cart">
     <span class="cart-item cart-header cart-column">Item: {{ item.title }}</span><br>
     <span class="cart-price cart-header cart-column">Price: {{ item.price }}$</span><br>
     <span class="cart-quantity cart-header cart-column">Amount: {{ item.amount }}</span>
-    <button class="btn btn-primary btn-delete" 
-    type="submit"
-    (click)="deleteItem(this.item.title)">Delete Item</button>
+    <button class="btn btn-primary btn-delete" type="submit" (click)="deleteItem(this.item.title)">Delete Item</button>
   </div>
   <div class="cart-total">
     <strong class="cart-total-title">Total</strong><br>
     <span class="cart-total-price">Total: {{ total }}$</span>
   </div>
   <button class="btn btn-primary btn-purchase" type="button">PURCHASE</button>
-  <button class="btn btn-primary btn-purchase" (click)="backClicked()"
-  type="button">Go Back</button>
-</section>
+  <button class="btn btn-primary btn-purchase" (click)="backClicked()" type="button">Go Back</button>
+</section> -->
+
+<app-header></app-header>
+<div class="card-header"><i class="fa fa-align-justify"></i>
+  <h2>Cart</h2>
+  <hr>
+  <h2>Total: {{ total }}$</h2>
+</div>
+<div class="card-body">
+  <table class="table table-responsive-sm">
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>Price</th>
+        <th>Amount</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of cart">
+        <td>{{ item.title }}</td>
+        <td>{{ item.price }}$</td>
+        <td>{{ item.amount }}</td>
+        <td>
+          <button class="btn btn-primary btn-purchase" (click)="backClicked()" 
+          type="button">Delete</button>
+      </td>
+      </tr>
+    </tbody>
+  </table>
+  <!-- <ul class="pagination">
+    <li class="page-item"><a class="page-link" href="#">Prev</a></li>
+    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item"><a class="page-link" href="#">4</a></li>
+    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+  </ul> -->
+</div>

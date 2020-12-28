@@ -1,4 +1,4 @@
-<form [formGroup]="userLoginForm" (ngSubmit) = "onSubmit()">
+<!-- <form [formGroup]="userLoginForm" (ngSubmit) = "onSubmit()">
     <label for="email">E-mail:</label><br>
     <input type="text" id="email" 
     name="email"
@@ -16,4 +16,48 @@
     <button (click)="router.navigate(['/register']);">
         <h5 class="band-name">Register</h5>
       </button>
-</form>
+</form> -->
+
+<app-header></app-header>
+<div class="container-fluid">
+    <div class="row mx-auto justify-content-md-center">
+        <div class="col col-lg-4">
+            <div class="card">
+                <div class="card-header">Login</div>
+                <div class="card-body">
+                    <form [formGroup]="userLoginForm" (ngSubmit)="onSubmit()">
+                        <div class="form-group" id="inputs">
+                            <div class="input-group">
+                                <div class="input-group-prepend"><span class="input-group-text">
+                                        <svg class="c-icon">
+                                            <use
+                                                xlink:href="node_modules/@coreui/icons/sprites/free.svg#cil-envelope-open">
+                                            </use>
+                                        </svg></span></div>
+                                <input formControlName="email" class="form-control" id="email" type="email" name="email"
+                                    placeholder="Email" autocomplete="email">
+                            </div>
+                        </div>
+                        <div class="form-group" id="inputs">
+                            <div class="input-group">
+                                <div class="input-group-prepend"><span class="input-group-text">
+                                        <svg class="c-icon">
+                                            <use
+                                                xlink:href="node_modules/@coreui/icons/sprites/free.svg#cil-lock-locked">
+                                            </use>
+                                        </svg></span></div>
+                                <input formControlName="password" class="form-control" id="password" type="password"
+                                    name="password" placeholder="Password" autocomplete="new-password">
+                            </div>
+                        </div>
+                        <div class="form-group form-actions">
+                            <button class="btn btn-sm btn-dark"
+                                (click)="router.navigate(['/register']);">Register</button>
+                            <button id="login" class="btn btn-sm btn-dark ml-1" type="submit">Login</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
