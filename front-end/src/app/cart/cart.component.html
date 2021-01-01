@@ -17,8 +17,50 @@
 <app-header></app-header>
 <div class="card-header"><i class="fa fa-align-justify"></i>
   <h2>Cart</h2>
-  <hr>
   <h2>Total: {{ total }}$</h2>
+  <button class="btn btn-primary btn-dark" 
+  type="button"
+  data-toggle="modal" data-target="#exampleModalScrollableTitleCart">Purchase
+  </button>
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModalScrollableTitleCart" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalScrollableTitleCart" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalScrollableTitleCart">Your Order</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="card-body">
+            <table class="table table-responsive-sm">
+              <thead>
+                <tr>
+                  <th>Item</th>
+                  <th>Price</th>
+                  <th>Quantity</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of cart">
+                  <td>{{ item.title }}</td>
+                  <td>{{ item.price }}$</td>
+                  <td>{{ item.amount }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Complete Purchase</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--modal-->
 </div>
 <div class="card-body">
   <table class="table table-responsive-sm">
@@ -26,7 +68,7 @@
       <tr>
         <th>Item</th>
         <th>Price</th>
-        <th>Amount</th>
+        <th>Quantity</th>
         <th>Status</th>
       </tr>
     </thead>
@@ -36,9 +78,8 @@
         <td>{{ item.price }}$</td>
         <td>{{ item.amount }}</td>
         <td>
-          <button class="btn btn-primary btn-purchase" (click)="backClicked()" 
-          type="button">Delete</button>
-      </td>
+          <button class="btn btn-primary btn-dark" type="submit" (click)="deleteItem(this.item.title)">Delete </button>
+        </td>
       </tr>
     </tbody>
   </table>

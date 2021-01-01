@@ -2,15 +2,14 @@
   <header>
     <app-header></app-header>
   </header>
-  <form>
-    <div class="row justify-content-md-center">
-      <div class="col-sm-4" *ngFor="let coin of coins">
+  <div class="row justify-content-md-center">
+    <div class="col-5" *ngFor="let coin of coins">
+      <form [formGroup]="addToCartForm" (ngSubmit)="onSubmit(this.coin)">
         <div class="card mb-3" style="max-width: 540px;">
           <div class="row no-gutters" id="inner-row">
-            <div class="col-md-4">
-              <img [src]="coin.imageURL" (click)="getModalCoin(coin)"
-              class="bd-placeholder-img card-img-top" width="100%" height="120"
-                xmlns="http://www.w3.org/2000/svg" aria-label="Placeholder: Image cap"
+            <div class="col-5">
+              <img [src]="coin.imageURL" (click)="getModalCoin(coin)" class="bd-placeholder-img card-img-top pl-3"
+                width="100%" height="120" xmlns="http://www.w3.org/2000/svg" aria-label="Placeholder: Image cap"
                 data-toggle="modal" data-target="#exampleModalScrollable">
               <!-- Modal -->
               <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog"
@@ -34,30 +33,36 @@
               </div>
               <!--modal-->
             </div>
-            <div class="col-md-8">
+            <div class="col-7">
               <div class="card-body">
-                <h5 class="card-title">{{coin.title}}</h5>
-                <p class="card-text">{{coin.price}}$</p>
+                <h5 class="form-control card-title">{{coin.title}}</h5>
+                <p class="form controlcard-text">{{coin.price}}$</p>
                 <label for="amount">Quantity:</label>
-                <input class="form-control mb-2" type="text" [(ngModel)]="coin.amount" id="amount" name="amount"
-                  #name="ngModel">
-                <p class="card-text"><small class="text-muted">
-                    <button type="submit" (click)="onSubmit(this.coin)" class="btn-pill btn-dark">Add to Cart</button>
-                  </small></p>
+                <input formControlName="amount" class="form-control mb-2" type="text" id="amount" name="amount">
+
+                <!-- validation -->
+                <div *ngIf="addToCartForm.controls['amount'].invalid && 
+                  (addToCartForm.controls['amount'].dirty || 
+                  addToCartForm.controls['amount'].touched)" class="alert alert-danger">
+                  Amount should be greater than 0!
+                  <div *ngIf="addToCartForm.controls['amount'].errors.required">
+                    Amount is required!
+                  </div>
+                </div>
+                <!-- validation -->
+
+                <p class="card-text">
+                  <small class="text-muted">
+                    <button type="submit" class="btn-pill btn-dark">
+                      Add to Cart
+                    </button>
+                  </small>
+                </p>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <!-- <div class="col-sm">
-        <label for="amount">Amount:</label>
-        <input type="text" [(ngModel)]="coin.amount" id="amount" name="amount" #name="ngModel">
-        <div class="shop-item-details">
-          <p name="price" class="shop-item-price">{{ coin.price }}
-          </p>
-        </div>
-        <button type="submit" (click)="onSubmit(this.coin)" class="btn-primary">Add to Cart</button>
-      </div> -->
+      </form>
     </div>
-  </form>
+  </div>
 </div>
