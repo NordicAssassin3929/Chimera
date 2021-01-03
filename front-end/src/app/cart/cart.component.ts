@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 export class CartComponent implements OnInit {
   cart: Cart[] = [];
   total: Number = 0;
+  message: string = '';
 
   constructor(private router: Router,
     private apiService: ApiService,
@@ -25,6 +26,11 @@ export class CartComponent implements OnInit {
         this.cart = data.products
         this.total = data.totalPrice
       })
+  }
+
+  successfulPurchase(){
+    console.log('Success')
+    this.message = 'Your order has been received and we\' re working on it!'  
   }
 
   backClicked() {

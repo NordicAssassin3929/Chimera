@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '../models/User';
 import { ApiService } from "../services/api.service";
-import { FormGroup, FormBuilder } from '@angular/forms'
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms'
 import { pipe } from 'rxjs';
-import {Observable} from "rxjs";
+import { Observable } from "rxjs";
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -17,21 +17,29 @@ export class RegisterComponent implements OnInit {
   userRegistrationForm: FormGroup;
   user: User;
   userExists: boolean
+  message: string = '';
 
   constructor(private apiService: ApiService,
     private router: Router,
     private fb: FormBuilder) {
+    this.initializeForm()
   }
 
   ngOnInit(): void {
-    this.initializeForm()
   }
 
   initializeForm() {
     this.userRegistrationForm = this.fb.group({
-      email: '',
-      password: '',
-      dob: ''
+      email: ['', [Validators.required,
+      Validators.pattern(/^[-_a-zA-Z0-9]*/)
+      ]]
+      ,
+      password: ['', [Validators.required,
+      Validators.pattern(/^[-_a-zA-Z0-9]*/)
+      ]],
+      dob: ['', [Validators.required,
+      Validators.pattern(/^-?(0|[1-9]\d*)?$/)
+      ]]
     })
   }
 
@@ -57,7 +65,18 @@ export class RegisterComponent implements OnInit {
       console.log("5. result is: ", result);
       userExists = result
       this.userExistsValidator(userExists)
-  });
+    });
+  }
+
+  alertUsernameSuccess() {
+    this.message = 'Successful registration! Navigating to login!'
+    setTimeout(() => {
+      this.router.navigateByUrl('/login')
+    }, 5000)
+  }
+
+  alertUsernameFail() {
+    this.message = 'Username already exists!'
   }
 
   userExistsValidator(userExists: boolean): void {
@@ -72,12 +91,7 @@ export class RegisterComponent implements OnInit {
             email = await data.email
             console.log('email: ' + email)
             console.log('this.user.email: ' + this.user.email)
-            if (this.user.email !== email && email !== undefined) {
-              //this.createUser()
-            }
-            else {
-              console.log('username is taken!')
-            }
+            this.alertUsernameFail()
           }, (error) => {
             console.log(error)
           }
@@ -86,6 +100,7 @@ export class RegisterComponent implements OnInit {
     // user doesn't exist
     else {
       console.log('Else')
+      this.alertUsernameSuccess()
       this.createUser()
     }
   }
@@ -100,7 +115,6 @@ export class RegisterComponent implements OnInit {
           console.log(error)
         }
       )
-    //this.router.navigateByUrl('/login')
   }
 
 }

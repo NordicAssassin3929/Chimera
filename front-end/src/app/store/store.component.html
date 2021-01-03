@@ -38,7 +38,8 @@
                 <h5 class="form-control card-title">{{coin.title}}</h5>
                 <p class="form controlcard-text">{{coin.price}}$</p>
                 <label for="amount">Quantity:</label>
-                <input formControlName="amount" class="form-control mb-2" type="text" id="amount" name="amount">
+                <input formControlName="amount" class="form-control mb-2" 
+                type="text" id="amount" name="amount">
 
                 <!-- validation -->
                 <div *ngIf="addToCartForm.controls['amount'].invalid && 
